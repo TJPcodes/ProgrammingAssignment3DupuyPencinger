@@ -47,7 +47,7 @@ K is alphabet size, then K lines of char + value, then string A, then string B
 ## Files
 
 - `data/example.in` / `data/example.out` - the example from the assignment spec
-- `data/test_01_n25.in` through `data/test_10_n2000.in` - test inputs for Q1
+- `data/test_01.in` through `data/test_14.in` - test inputs for Q1
 - `src/hvlcs.py` - main algorithm
 
 ---
@@ -62,14 +62,36 @@ K is alphabet size, then K lines of char + value, then string A, then string B
 
 ## Q1 - Empirical Comparison
 
-{DOM TODO} - run the test files and make the runtime graph
-
 ```bash
-python tests/gen_tests.py   # generates the 10 input files in data/
-python tests/benchmark.py   # times each one and prints the table
+python tests/benchmark.py
 ```
 
-use at least 10 input files with strings of length >= 25 (already set up, sizes go from 25 to 2000). plot n vs time(s) and paste graph here.
+| file | n | time (s) |
+|---|---|---|
+| test_01.in | 25 | 0.0185 |
+| test_02.in | 26 | 0.0158 |
+| test_03.in | 29 | 0.0165 |
+| test_04.in | 25 | 0.0176 |
+| test_05.in | 32 | 0.0164 |
+| test_06.in | 26 | 0.0154 |
+| test_07.in | 30 | 0.0168 |
+| test_08.in | 28 | 0.0163 |
+| test_09.in | 31 | 0.0159 |
+| test_10.in | 30 | 0.0157 |
+| test_11.in | 200 | 0.0199 |
+| test_12.in | 500 | 0.0370 |
+| test_13.in | 1000 | 0.1064 |
+| test_14.in | 2000 | 0.3761 |
+
+The first 10 files (n = 25–32) are flat around 0.016s due to Python startup overhead. The growth becomes visible at n = 200 and is clearly quadratic by n = 2000, consistent with the O(mn) runtime of the algorithm.
+
+![benchmark](data/benchmark.png)
+
+To regenerate the graph:
+
+```bash
+python tests/plot_benchmark.py
+```
 
 ---
 
