@@ -2,7 +2,7 @@
 
 **Tyler Pencinger** - UFID: 86826331
 
-**Dominick Dupuy** - UFID: [Dom UFID]
+**Dominick Dupuy** - UFID: 399222039
 
 ---
 
@@ -23,12 +23,14 @@ python src/hvlcs.py < data/example.in
 ```
 
 should print:
+
 ```
 9
 cb
 ```
 
 input format:
+
 ```
 K
 x1 v1
@@ -37,6 +39,7 @@ x2 v2
 A
 B
 ```
+
 K is alphabet size, then K lines of char + value, then string A, then string B
 
 ---
@@ -50,6 +53,7 @@ K is alphabet size, then K lines of char + value, then string A, then string B
 ---
 
 ## Assumptions
+
 - every character in A and B is in the alphabet definition
 - values are nonneg integers
 - ties during backtracking go to skipping from A first, subsequence might differ but value is always optimal
@@ -74,13 +78,16 @@ use at least 10 input files with strings of length >= 25 (already set up, sizes 
 let dp[i][j] = the max value of any common subsequence of A[1..i] and B[1..j]
 
 base cases:
+
 ```
 dp[0][j] = 0  for all j
 dp[i][0] = 0  for all i
 ```
+
 if either string is empty theres nothing to match so the value is 0.
 
 recurrence:
+
 ```
 dp[i][j] = dp[i-1][j-1] + v(A[i])        if A[i] == B[j]
 dp[i][j] = max(dp[i-1][j], dp[i][j-1])   otherwise
@@ -121,4 +128,4 @@ HVLCS(A, B, v):
   return dp[m][n], result
 ```
 
-runtime is O(mn). the table has m*n cells and each one is constant time, so thats O(mn). backtracking walks at most m+n steps which gets absorbed. space is also O(mn) since you need the whole table to backtrack - you could drop it to O(n) if you only wanted the value, but then you cant reconstruct the actual subsequence.
+runtime is O(mn). the table has m\*n cells and each one is constant time, so thats O(mn). backtracking walks at most m+n steps which gets absorbed. space is also O(mn) since you need the whole table to backtrack - you could drop it to O(n) if you only wanted the value, but then you cant reconstruct the actual subsequence.
